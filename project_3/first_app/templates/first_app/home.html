@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First App Home Page</title>
+</head>
+<body> 
+    <h1>This is First App HOME page.</h1>
+    <h2>Author: {{author}}</h2>
+    <h2>Age: {{age}}</h2>
+    <h4>My List: {{list}}</h4>
+
+    <!-- Conditional Statement -->
+    {% if age >= 20 %}
+        <h4>You will get Driving License</h4>
+    {% elif age >= 10 and age <= 19 %}
+        <h4>You will NOT get Driving License</h4>
+    {% else %}
+        <h4>You are a child!</h4>
+    {% endif %}
+
+    <!-- For loop -->
+    {% for i in courses %}
+        <h3>{{i.id}} : {{i.name}} : {{i.fee}}</h3>
+    {% endfor %}
+
+    <!-- Template filtering -->
+    {{list}}
+    <h4>{{ list | join:" - " }}</h4>
+
+    <h5>Birth Date: {{ DOB | date:"D d M Y" }}</h5>
+
+    <h5>{{ "January - February - March" | cut:"-" }}</h5>
+
+    <h1>{{ emptyValue | length }}</h1>
+
+    <h1>{{'Happy coding. Python is fun.' | truncatechars:6 }}</h1>
+    <h1>{{'Happy coding. Python is fun. I love to do Python codding.' | truncatewords:3 }}</h1>
+
+
+</body>
+</html>
