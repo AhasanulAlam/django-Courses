@@ -59,4 +59,20 @@ class StudentData(forms.Form):
     file = forms.FileField(validators=[validators.FileExtensionValidator(allowed_extensions=['pdf', 'png'], message='File extension must be with .pdf or .png')])
 
 
+class PasswordValidationProject(forms.Form):
+    name = forms.CharField(widget=forms.TextInput)
+    password = forms.CharField(widget=forms.PasswordInput)
+    confirm_password = forms.CharField(widget=forms.PasswordInput)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        name_value = self.cleaned_data['name']
+        pass_value = self.cleaned_data['password']
+        confirm_pass_value = self.cleaned_data['confirm_password']
+        if len(name_value) < 15 :
+            raise forms.ValidationError("Enter a name with at least 15 characters")
+        if pass_value != confirm_pass_value:
+            raise forms.ValidationError("Password doesn't match")
+        
+
 
