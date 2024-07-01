@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container text-center">
+        <h1>{{type}} Page</h1>
+    </div>
+    <hr>
+    <div class="container text-center">
+        <a class="btn btn-primary" href="{% url 'edit_profile' %}" >Edit your Profile</a>
+    </div>
+    <hr>
+    
+    <div class="row pt-5 container m-auto">
+        {% for post in data %}
+        <div class="col-sm-3 mb-3 mb-sm-0">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{post.title}}</h5>
+              <p class="card-text">
+                {{post.content | truncatewords:15 }}
+                <small><a href="">more.</a></small>
+              </p>
+              <p class="py-2">
+                <small>Author: {{post.author.first_name}} {{post.author.last_name}}</small>
+              </p>
+              <p class="py-2">
+                <small
+                  >Category: {% for cat in post.category.all %}
+                  <button class="btn btn-info btn-sm m-2" disabled>
+                    {{cat.name}}
+                  </button>
+                  {% endfor %}
+                </small>
+              </p>
+              <hr />
+              <div class="d-flex justify-content-around align-items-center">
+                <a href="{% url 'edit_post' post.id %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'delete_post' post.id %}" class="btn btn-danger">Delete</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+   
+
+{% endblock %}
