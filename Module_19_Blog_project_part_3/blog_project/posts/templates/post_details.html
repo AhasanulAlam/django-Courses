@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container text-center">
+        <h1>Post Details Page</h1>
+    </div>
+    <hr>
+    <div class="container">
+        <div class=" col-12 b-3 mb-sm-0">
+            <div class="card">
+              <img src="{{post.image.url}}" class="card-img-top w-50" alt="..." width="100%">
+              <div class="card-body">
+                <h1 class="card-title">{{post.title}}</h1>
+                <p class="card-text">
+                  {{post.content }}
+                </p>
+                <p class="py-2">
+                  <small>Author: {{post.author.first_name}} {{post.author.last_name}}</small>
+                </p>
+                <p class="py-2">
+                  <small
+                    >Category: {% for cat in post.category.all %}
+                    <button class="btn btn-warning btn-sm m-2" disabled>
+                      {{cat.name}}
+                    </button>
+                    {% endfor %}
+                  </small>
+                </p>
+              </div>
+            </div>
+          </div>
+    </div>
+
+{% endblock %}
