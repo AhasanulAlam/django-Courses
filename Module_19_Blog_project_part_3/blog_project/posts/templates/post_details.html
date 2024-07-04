@@ -2,34 +2,59 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <div class="container text-center">
-        <h1>Post Details Page</h1>
-    </div>
-    <hr>
-    <div class="container">
-        <div class=" col-12 b-3 mb-sm-0">
-            <div class="card">
-              <img src="{{post.image.url}}" class="card-img-top w-50" alt="..." width="100%">
-              <div class="card-body">
-                <h1 class="card-title">{{post.title}}</h1>
-                <p class="card-text">
-                  {{post.content }}
-                </p>
-                <p class="py-2">
-                  <small>Author: {{post.author.first_name}} {{post.author.last_name}}</small>
-                </p>
-                <p class="py-2">
-                  <small
-                    >Category: {% for cat in post.category.all %}
-                    <button class="btn btn-warning btn-sm m-2" disabled>
-                      {{cat.name}}
-                    </button>
-                    {% endfor %}
-                  </small>
-                </p>
-              </div>
+  <div class="container text-center">
+      <h1>Post Details Page</h1>
+  </div>
+  <hr>
+  <div class="container">
+      <div class=" col-12 b-3 mb-sm-0">
+          <div class="card">
+            <img src="{{post.image.url}}" class="card-img-top w-50" alt="..." width="100%">
+            <div class="card-body">
+              <h1 class="card-title">{{post.title}}</h1>
+              <p class="card-text">
+                {{post.content }}
+              </p>
+              <p class="py-2">
+                <small>Author: {{post.author.first_name}} {{post.author.last_name}}</small>
+              </p>
+              <p class="py-2">
+                <small
+                  >Category: {% for cat in post.category.all %}
+                  <button class="btn btn-warning btn-sm m-2" disabled>
+                    {{cat.name}}
+                  </button>
+                  {% endfor %}
+                </small>
+              </p>
             </div>
           </div>
+        </div>
     </div>
+    <div class="container">
+      <div class="card my-2">
+        <h5 class="p-3">Total Comments: {{comments | length}}</h5>
+        {% for comment in comments %}
+        <div class="card-body border border-2 border-warning m-2 rounded rounded-4">
+          <p><span class="border border-2 p-2 rounded rounded-4 border-success fw-semibold">{{comment.name}}</span><span class="m-2">: {{comment.created_on}}</span></p>
+          <p class="ms-5 border border-2 p-2 rounded rounded-4 border-info">{{comment.body}}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="container">
+      <div class="card my-2">
+        <div class="card-body">
+          <form method='post' style="width:50%; margin:auto">
+            <h1>Add Comment</h1>
+            {% csrf_token %}
+            {{comment_form | crispy}}
+            <button class="btn btn-warning" type="submit">Submit</button>
+        </form>
+        </div>
+      </div>
+    </div>
+
+
 
 {% endblock %}
